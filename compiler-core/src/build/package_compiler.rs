@@ -1,3 +1,4 @@
+use crate::rust;
 use crate::{
     ast::{SrcSpan, TypedModule, UntypedModule},
     build::{
@@ -17,6 +18,7 @@ use crate::{
     Error, Result, Warning,
 };
 use askama::Template;
+use itertools::Itertools;
 use smol_str::SmolStr;
 use std::{collections::HashMap, fmt::write, time::SystemTime};
 use std::{
@@ -258,6 +260,7 @@ where
             TargetCodegenConfiguration::Erlang { app_file } => {
                 self.perform_erlang_codegen(modules, app_file.as_ref())
             }
+            TargetCodegenConfiguration::Rust => self.perform_rust_codegen(modules),
         }
     }
 
@@ -305,6 +308,21 @@ where
         } else {
             tracing::info!("skipping_erlang_bytecode_compilation");
         }
+        Ok(())
+    }
+
+    fn perform_rust_codegen(&mut self, modules: &[Module]) -> Result<(), Error> {
+        println!("{:?}", modules);
+        println!("\n\n========\n\n");
+        println!("{:?}", modules.iter().map(|m| &m.ast).collect_vec());
+        println!("\n\n========\n\n");
+        let compiled = modules
+            .iter()
+            .map(|m| &m.ast)
+            .map(rust::compile::compile)
+            .collect_vec()
+            .join("\n\n// MODULE\n\n");
+        print!("{compiled}");
         Ok(())
     }
 

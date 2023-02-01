@@ -24,6 +24,7 @@ pub fn command(options: CompilePackage) -> Result<()> {
         Target::JavaScript => TargetCodegenConfiguration::JavaScript {
             emit_typescript_definitions: false,
         },
+        Target::Rust => TargetCodegenConfiguration::Rust,
     };
 
     tracing::info!("Compiling package");

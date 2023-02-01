@@ -2293,6 +2293,10 @@ issue in our tracker: https://github.com/gleam-lang/gleam/issues",
                         "You can not set a runtime for Erlang. Did you mean to target JavaScript?"
                             .into(),
                     ),
+                    Target::Rust => Some(
+                        "You can not set a runtime for Rust. Did you mean to target JavaScript?"
+                            .into(),
+                    ),
                 };
 
                 Diagnostic {

@@ -56,6 +56,7 @@ pub fn command(
             Runtime::Deno => run_javascript_deno(&config, &module, arguments),
             Runtime::Node => run_javascript_node(&config, &module, arguments),
         },
+        Target::Rust => todo!(),
     }?;
 
     std::process::exit(status);

@@ -53,6 +53,8 @@ pub enum Target {
     Erlang,
     #[serde(rename = "javascript")]
     JavaScript,
+    #[serde(rename = "rust")]
+    Rust,
 }
 
 impl Target {
@@ -80,6 +82,7 @@ impl Default for Runtime {
 
 #[derive(Debug)]
 pub enum TargetCodegenConfiguration {
+    Rust,
     JavaScript {
         emit_typescript_definitions: bool,
     },
@@ -91,6 +94,7 @@ pub enum TargetCodegenConfiguration {
 impl TargetCodegenConfiguration {
     pub fn target(&self) -> Target {
         match self {
+            Self::Rust => Target::Rust,
             Self::JavaScript { .. } => Target::JavaScript,
             Self::Erlang { .. } => Target::Erlang,
         }

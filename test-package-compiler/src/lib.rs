@@ -32,6 +32,7 @@ pub fn prepare(path: &str) -> String {
         Target::JavaScript => TargetCodegenConfiguration::JavaScript {
             emit_typescript_definitions: config.javascript.typescript_declarations,
         },
+        Target::Rust => TargetCodegenConfiguration::Rust,
     };
 
     let ids = gleam_core::uid::UniqueIdGenerator::new();

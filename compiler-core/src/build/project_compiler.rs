@@ -405,6 +405,7 @@ where
             Target::JavaScript => super::TargetCodegenConfiguration::JavaScript {
                 emit_typescript_definitions: self.config.javascript.typescript_declarations,
             },
+            Target::Rust => super::TargetCodegenConfiguration::Rust,
         };
         let mut compiler = PackageCompiler::new(
             config,
